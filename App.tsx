@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { generateImage } from './services/geminiService';
-import { 
-  Terminal, 
-  Brain, 
-  Mountain, 
-  BookOpen, 
-  Cpu, 
-  ArrowRight, 
-  Leaf, 
+import {
+  Terminal,
+  Brain,
+  Mountain,
+  BookOpen,
+  Cpu,
+  ArrowRight,
+  Leaf,
   Snowflake,
   Waves
 } from 'lucide-react';
@@ -18,8 +17,6 @@ interface ContentSection {
   title: string;
   description: string;
   icon: React.ReactNode;
-  imagePrompt: string;
-  fallbackImage: string;
 }
 
 // --- Data ---
@@ -29,32 +26,24 @@ const SECTIONS: ContentSection[] = [
     title: '嘉树 Jiashu',
     description: '码农 · 野生心理博主 · 大自然探险家',
     icon: <Terminal className="w-6 h-6" />,
-    imagePrompt: "A cinematic conceptual portrait of a man standing between a digital matrix wall and a lush green forest, symbolizing the balance between coding and nature, photorealistic, warm lighting.",
-    fallbackImage: "https://picsum.photos/1200/600?grayscale"
   },
   {
     id: 'psychology',
     title: '阅读与解构',
     description: '热爱阅读，拆解《小王子》寓言旅行中的心理隐喻｜解码《瓦尔登湖》极简生活方式的疗愈力。用阅读解构人性，在冒险中寻找内在秩序。',
     icon: <Brain className="w-6 h-6" />,
-    imagePrompt: "A cozy wooden desk in nature with the books 'The Little Prince' and 'Walden', soft sunlight filtering through leaves, peaceful atmosphere, high quality.",
-    fallbackImage: "https://picsum.photos/800/600?random=1"
   },
   {
     id: 'nature',
     title: '自然与运动',
     description: '热爱运动，雪山滑雪❄️ · 陆地冲浪🏄 · 峰顶读心术。借自然重启认知，年近不惑仍对世界充满好奇。',
     icon: <Mountain className="w-6 h-6" />,
-    imagePrompt: "A dynamic split composition showing snowy mountains for skiing on one side and a surfboard on a sunny path on the other, energetic and adventurous.",
-    fallbackImage: "https://picsum.photos/800/600?random=2"
   },
   {
     id: 'tech',
     title: 'AI 与创造力',
     description: '驯化 AI，解放生产力和创造力。带你用程序思维升级心智。',
     icon: <Cpu className="w-6 h-6" />,
-    imagePrompt: "Futuristic concept art of a glowing digital brain merging with organic plant vines, representing the fusion of artificial intelligence and natural growth.",
-    fallbackImage: "https://picsum.photos/800/600?random=3"
   }
 ];
 
@@ -81,11 +70,11 @@ const Hero = ({ section, imageUrl }: { section: ContentSection; imageUrl: string
     <header className="relative pt-32 pb-20 px-6 min-h-[80vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         {imageUrl ? (
-           <img 
-             src={imageUrl} 
-             alt="Hero Background" 
-             className="w-full h-full object-cover opacity-90 animate-fade-in"
-           />
+          <img
+            src={imageUrl}
+            alt="Hero Background"
+            className="w-full h-full object-cover opacity-90 animate-fade-in"
+          />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-stone-200 to-emerald-100 animate-pulse" />
         )}
@@ -100,14 +89,14 @@ const Hero = ({ section, imageUrl }: { section: ContentSection; imageUrl: string
           </span>
           Thinking via Code & Nature
         </div>
-        
+
         <h1 className="text-5xl md:text-7xl font-bold text-stone-900 tracking-tight leading-tight">
           在冒险中<br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
             寻找内在秩序
           </span>
         </h1>
-        
+
         <p className="text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
           {section.description}
         </p>
@@ -125,19 +114,19 @@ const Hero = ({ section, imageUrl }: { section: ContentSection; imageUrl: string
   );
 };
 
-const FeatureCard = ({ 
-  section, 
-  imageUrl, 
-  reverse = false 
-}: { 
-  section: ContentSection; 
-  imageUrl: string | null; 
-  reverse?: boolean 
+const FeatureCard = ({
+  section,
+  imageUrl,
+  reverse = false
+}: {
+  section: ContentSection;
+  imageUrl: string | null;
+  reverse?: boolean
 }) => {
   return (
     <section id={section.id} className="py-20 px-6 max-w-6xl mx-auto">
       <div className={`flex flex-col md:flex-row items-center gap-12 ${reverse ? 'md:flex-row-reverse' : ''}`}>
-        
+
         {/* Content Side */}
         <div className="flex-1 space-y-6">
           <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6">
@@ -148,26 +137,26 @@ const FeatureCard = ({
           <p className="text-lg text-stone-600 leading-relaxed">
             {section.description}
           </p>
-          
+
           <div className="pt-4 flex gap-3 text-sm font-medium text-stone-500">
-             {section.id === 'psychology' && (
-                <>
-                  <span className="px-3 py-1 bg-stone-100 rounded-lg">#小王子</span>
-                  <span className="px-3 py-1 bg-stone-100 rounded-lg">#瓦尔登湖</span>
-                </>
-             )}
-             {section.id === 'nature' && (
-                <>
-                  <span className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-lg"><Snowflake className="w-3 h-3"/> 滑雪</span>
-                  <span className="flex items-center gap-1 px-3 py-1 bg-orange-50 text-orange-700 rounded-lg"><Waves className="w-3 h-3"/> 陆冲</span>
-                </>
-             )}
-             {section.id === 'tech' && (
-                <>
-                   <span className="px-3 py-1 bg-purple-50 text-purple-700 rounded-lg">#AI</span>
-                   <span className="px-3 py-1 bg-stone-100 rounded-lg">#生产力</span>
-                </>
-             )}
+            {section.id === 'psychology' && (
+              <>
+                <span className="px-3 py-1 bg-stone-100 rounded-lg">#小王子</span>
+                <span className="px-3 py-1 bg-stone-100 rounded-lg">#瓦尔登湖</span>
+              </>
+            )}
+            {section.id === 'nature' && (
+              <>
+                <span className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-blue-700 rounded-lg"><Snowflake className="w-3 h-3" /> 滑雪</span>
+                <span className="flex items-center gap-1 px-3 py-1 bg-orange-50 text-orange-700 rounded-lg"><Waves className="w-3 h-3" /> 陆冲</span>
+              </>
+            )}
+            {section.id === 'tech' && (
+              <>
+                <span className="px-3 py-1 bg-purple-50 text-purple-700 rounded-lg">#AI</span>
+                <span className="px-3 py-1 bg-stone-100 rounded-lg">#生产力</span>
+              </>
+            )}
           </div>
         </div>
 
@@ -175,20 +164,20 @@ const FeatureCard = ({
         <div className="flex-1 w-full">
           <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-stone-200 group">
             {imageUrl ? (
-              <img 
-                src={imageUrl} 
-                alt={section.title} 
+              <img
+                src={imageUrl}
+                alt={section.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
               <div className="w-full h-full bg-stone-200 animate-pulse flex items-center justify-center text-stone-400">
                 <span className="flex flex-col items-center gap-2">
                   <span className="loading-spinner">✨</span>
-                  AI 正在绘图...
+                  Loading...
                 </span>
               </div>
             )}
-            
+
             {/* Overlay Gradient */}
             <div className="absolute inset-0 bg-gradient-to-tr from-stone-900/20 to-transparent pointer-events-none" />
           </div>
@@ -218,68 +207,61 @@ function App() {
   const [images, setImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const loadImages = async () => {
-      // Create a map of promises
-      const promises = SECTIONS.map(async (section) => {
-        // Check if we have an API key, if not use fallback immediately
-        if (!process.env.API_KEY) {
-            return { id: section.id, url: section.fallbackImage };
-        }
+    // Load all images from the imgs directory
+    const globImages = import.meta.glob('./imgs/*.{png,jpg,jpeg,webp}', { eager: true, query: '?url', import: 'default' });
 
-        // Try to generate image
-        const generated = await generateImage(section.imagePrompt);
-        return { 
-          id: section.id, 
-          url: generated || section.fallbackImage 
-        };
+    const newImages: Record<string, string> = {};
+
+    SECTIONS.forEach(section => {
+      // Find all images that start with the section id (e.g., 'hero1.png', 'hero2.png' for 'hero')
+      const matchingImages = Object.keys(globImages).filter(path => {
+        const filename = path.split('/').pop();
+        return filename?.startsWith(section.id);
       });
 
-      // Wait for all and update state
-      const results = await Promise.all(promises);
-      const newImages: Record<string, string> = {};
-      results.forEach(res => {
-        newImages[res.id] = res.url;
-      });
-      setImages(newImages);
-    };
+      if (matchingImages.length > 0) {
+        // Pick a random image from the matches
+        const randomPath = matchingImages[Math.floor(Math.random() * matchingImages.length)];
+        newImages[section.id] = globImages[randomPath] as string;
+      }
+    });
 
-    loadImages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run once on mount
+    setImages(newImages);
+  }, []);
 
   return (
     <div className="min-h-screen bg-stone-50 selection:bg-emerald-200 selection:text-emerald-900">
       <Navigation />
-      
+
       <main>
         <Hero section={SECTIONS[0]} imageUrl={images['hero'] || null} />
-        
-        <FeatureCard 
-          section={SECTIONS[1]} 
-          imageUrl={images['psychology'] || null} 
+
+        <FeatureCard
+          section={SECTIONS[1]}
+          imageUrl={images['psychology'] || null}
         />
-        
-        <FeatureCard 
-          section={SECTIONS[2]} 
-          imageUrl={images['nature'] || null} 
-          reverse={true} 
+
+        <FeatureCard
+          section={SECTIONS[2]}
+          imageUrl={images['nature'] || null}
+          reverse={true}
         />
-        
-        <FeatureCard 
-          section={SECTIONS[3]} 
-          imageUrl={images['tech'] || null} 
+
+        <FeatureCard
+          section={SECTIONS[3]}
+          imageUrl={images['tech'] || null}
         />
       </main>
 
       <div className="py-20 bg-emerald-50 px-6 text-center">
         <div className="max-w-2xl mx-auto space-y-6">
-            <BookOpen className="w-10 h-10 text-emerald-600 mx-auto" />
-            <h3 className="text-3xl font-bold text-stone-900">
-              关注我，带你用程序思维升级心智
-            </h3>
-            <p className="text-stone-600">
-              Decoding humanity through reading | Rebooting cognition through nature
-            </p>
+          <BookOpen className="w-10 h-10 text-emerald-600 mx-auto" />
+          <h3 className="text-3xl font-bold text-stone-900">
+            关注我，带你用程序思维升级心智
+          </h3>
+          <p className="text-stone-600">
+            Decoding humanity through reading | Rebooting cognition through nature
+          </p>
         </div>
       </div>
 
