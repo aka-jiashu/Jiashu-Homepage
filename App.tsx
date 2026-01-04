@@ -8,8 +8,13 @@ import {
   ArrowRight,
   Leaf,
   Snowflake,
-  Waves
+  Waves,
+  X,
+  Github,
+  Twitter,
+  ExternalLink
 } from 'lucide-react';
+import wechatPubRaw from './imgs/wechat-pub.jpg';
 
 // --- Types ---
 interface ContentSection {
@@ -57,15 +62,78 @@ const Navigation = () => (
         <span>嘉树</span>
       </div>
       <div className="flex gap-6 text-sm font-medium text-stone-600">
-        <a href="#psychology" className="hover:text-emerald-700 transition-colors">心理</a>
-        <a href="#nature" className="hover:text-emerald-700 transition-colors">自然</a>
-        <a href="#tech" className="hover:text-emerald-700 transition-colors">科技</a>
+        <a href="/blog/psychology/" className="hover:text-emerald-700 transition-colors">心理</a>
+        <a href="/blog/nature/" className="hover:text-emerald-700 transition-colors">自然</a>
+        <a href="/blog/tech/" className="hover:text-emerald-700 transition-colors">科技</a>
       </div>
     </div>
   </nav>
 );
 
-const Hero = ({ section, imageUrl }: { section: ContentSection; imageUrl: string | null }) => {
+const FollowModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div
+        className="absolute inset-0 bg-stone-900/60 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+      <div className="relative bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-fade-in-up">
+        <div className="absolute top-4 right-4">
+          <button
+            onClick={onClose}
+            className="p-2 text-stone-400 hover:text-stone-600 hover:bg-stone-100 rounded-full transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="text-center space-y-6">
+          <h3 className="text-2xl font-bold text-stone-900">关注我</h3>
+
+          <div className="flex flex-col gap-3">
+            <a
+              href="https://x.com/akajiashu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-700 font-medium hover:border-stone-900 hover:bg-stone-100 transition-all group"
+            >
+              <Twitter className="w-5 h-5 group-hover:text-[#1DA1F2]" />
+              <span>Twitter / X</span>
+              <ExternalLink className="w-4 h-4 text-stone-400 ml-auto" />
+            </a>
+
+            <a
+              href="https://github.com/aka-jiashu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-700 font-medium hover:border-stone-900 hover:bg-stone-100 transition-all group"
+            >
+              <Github className="w-5 h-5 group-hover:text-black" />
+              <span>GitHub</span>
+              <ExternalLink className="w-4 h-4 text-stone-400 ml-auto" />
+            </a>
+          </div>
+
+          <div className="pt-4 border-t border-stone-100">
+            <div className="text-sm font-medium text-stone-500 mb-4">微信公众号：博约精一</div>
+            <div className="w-40 h-40 mx-auto bg-stone-100 rounded-xl overflow-hidden p-2 border border-stone-200">
+              <img
+                src={wechatPubRaw}
+                alt="微信公众号：博约精一"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <p className="mt-3 text-xs text-stone-400">扫码关注，一起成长</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Hero = ({ section, imageUrl, onFollowClick }: { section: ContentSection; imageUrl: string | null; onFollowClick: () => void }) => {
   return (
     <header className="relative pt-32 pb-20 px-6 min-h-[80vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -102,12 +170,15 @@ const Hero = ({ section, imageUrl }: { section: ContentSection; imageUrl: string
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-          <button className="px-8 py-3 rounded-full bg-stone-900 text-white font-medium hover:bg-stone-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20">
+          <button
+            onClick={onFollowClick}
+            className="px-8 py-3 rounded-full bg-stone-900 text-white font-medium hover:bg-stone-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20"
+          >
             关注我 <ArrowRight className="w-4 h-4" />
           </button>
-          <button className="px-8 py-3 rounded-full bg-white border border-stone-200 text-stone-700 font-medium hover:border-emerald-500 hover:text-emerald-700 transition-all shadow-sm">
+          <a href="/blog/" className="px-8 py-3 rounded-full bg-white border border-stone-200 text-stone-700 font-medium hover:border-emerald-500 hover:text-emerald-700 transition-all shadow-sm">
             了解更多
-          </button>
+          </a>
         </div>
       </div>
     </header>
@@ -124,7 +195,7 @@ const FeatureCard = ({
   reverse?: boolean
 }) => {
   return (
-    <section id={section.id} className="py-20 px-6 max-w-6xl mx-auto">
+    <section id={section.id} className="py-20 px-6 max-w-6xl mx-auto cursor-pointer" onClick={() => window.location.href = `/blog/${section.id}/`}>
       <div className={`flex flex-col md:flex-row items-center gap-12 ${reverse ? 'md:flex-row-reverse' : ''}`}>
 
         {/* Content Side */}
@@ -205,6 +276,7 @@ const Footer = () => (
 
 function App() {
   const [images, setImages] = useState<Record<string, string>>({});
+  const [isFollowModalOpen, setIsFollowModalOpen] = useState(false);
 
   useEffect(() => {
     // Load all images from the imgs directory
@@ -234,7 +306,11 @@ function App() {
       <Navigation />
 
       <main>
-        <Hero section={SECTIONS[0]} imageUrl={images['hero'] || null} />
+        <Hero
+          section={SECTIONS[0]}
+          imageUrl={images['hero'] || null}
+          onFollowClick={() => setIsFollowModalOpen(true)}
+        />
 
         <FeatureCard
           section={SECTIONS[1]}
@@ -262,10 +338,21 @@ function App() {
           <p className="text-stone-600">
             Decoding humanity through reading | Rebooting cognition through nature
           </p>
+          <button
+            onClick={() => setIsFollowModalOpen(true)}
+            className="mt-6 px-8 py-3 rounded-full bg-stone-900 text-white font-medium hover:bg-stone-800 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20"
+          >
+            关注我 <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
       <Footer />
+
+      <FollowModal
+        isOpen={isFollowModalOpen}
+        onClose={() => setIsFollowModalOpen(false)}
+      />
     </div>
   );
 }

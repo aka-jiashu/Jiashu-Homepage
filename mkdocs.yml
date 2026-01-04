@@ -1,0 +1,46 @@
+site_name: 嘉树 Jiashu's Blog
+site_url: https://aka-jiashu.cc/blog/
+site_dir: dist/blog
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - 首页: index.md
+  - 阅读与解构: 
+    - 概览: psychology/index.md
+    - 《小王子》与亲密关系: psychology/the-little-prince.md
+  - 自然与运动: nature/index.md
+  - AI 与创造力:
+    - 概览: tech/index.md
+    - AI Agent 时代: tech/ai-agent-era.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+
+plugins:
+  - search:
+      lang: ['en', 'zh']
