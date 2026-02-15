@@ -56,12 +56,12 @@ const SECTIONS: ContentSection[] = [
 
 const Navigation = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 bg-stone-50/80 backdrop-blur-md border-b border-stone-200">
-    <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div className="max-w-6xl mx-auto px-5 md:px-6 h-14 flex items-center justify-between">
       <div className="text-xl font-bold tracking-tight text-emerald-900 flex items-center gap-2">
-        <Leaf className="w-6 h-6 text-emerald-600" />
-        <span>嘉树</span>
+        <Leaf className="w-5 h-5 text-emerald-600" />
+        <span className="text-base md:text-lg">嘉树</span>
       </div>
-      <div className="flex gap-6 text-sm font-medium text-stone-600">
+      <div className="flex gap-4 md:gap-6 text-sm font-medium text-stone-600">
         <a href="/blog/psychology/" className="hover:text-emerald-700 transition-colors">心理</a>
         <a href="/blog/nature/" className="hover:text-emerald-700 transition-colors">自然</a>
         <a href="/blog/tech/" className="hover:text-emerald-700 transition-colors">科技</a>
@@ -69,6 +69,52 @@ const Navigation = () => (
     </div>
   </nav>
 );
+
+const TYPEWRITER_LINES = [
+  '像写代码一样理解人性',
+  '在自然里重启认知系统',
+  '用 AI 放大创造力与行动力',
+];
+
+const TypewriterHeading = () => {
+  const [lineIndex, setLineIndex] = useState(0);
+  const [charCount, setCharCount] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentLine = TYPEWRITER_LINES[lineIndex];
+
+    if (!isDeleting && charCount === currentLine.length) {
+      const holdTimer = setTimeout(() => setIsDeleting(true), 1100);
+      return () => clearTimeout(holdTimer);
+    }
+
+    if (isDeleting && charCount === 0) {
+      setIsDeleting(false);
+      setLineIndex((prev) => (prev + 1) % TYPEWRITER_LINES.length);
+      return;
+    }
+
+    const speed = isDeleting ? 28 : 55;
+    const timer = setTimeout(() => {
+      setCharCount((prev) => prev + (isDeleting ? -1 : 1));
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [charCount, isDeleting, lineIndex]);
+
+  const output = TYPEWRITER_LINES[lineIndex].slice(0, charCount);
+
+  return (
+    <h1 className="text-3xl md:text-5xl font-bold text-stone-900 tracking-tight leading-tight min-h-[88px] md:min-h-[120px]">
+      <span className="block text-stone-500 text-sm md:text-base font-medium mb-1.5">typewriter.thought()</span>
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-700 to-teal-600">
+        {output}
+      </span>
+      <span className="typewriter-cursor text-emerald-700 ml-1">|</span>
+    </h1>
+  );
+};
 
 const FollowModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
@@ -135,7 +181,7 @@ const FollowModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 
 const Hero = ({ section, imageUrl, onFollowClick }: { section: ContentSection; imageUrl: string | null; onFollowClick: () => void }) => {
   return (
-    <header className="relative pt-32 pb-20 px-6 min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <header className="relative pt-24 md:pt-28 pb-10 md:pb-12 px-5 md:px-6 min-h-[58vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         {imageUrl ? (
           <img
@@ -149,8 +195,8 @@ const Hero = ({ section, imageUrl, onFollowClick }: { section: ContentSection; i
         <div className="absolute inset-0 bg-gradient-to-t from-stone-50 via-stone-50/60 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/50 border border-emerald-200 text-emerald-800 text-sm font-medium backdrop-blur-sm">
+      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5 md:space-y-6 animate-fade-in">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/60 border border-emerald-200 text-emerald-800 text-xs md:text-sm font-medium backdrop-blur-sm">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
@@ -158,25 +204,20 @@ const Hero = ({ section, imageUrl, onFollowClick }: { section: ContentSection; i
           Thinking via Code & Nature
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold text-stone-900 tracking-tight leading-tight">
-          在冒险中<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
-            寻找内在秩序
-          </span>
-        </h1>
+        <TypewriterHeading />
 
-        <p className="text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base md:text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed">
           {section.description}
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
           <button
             onClick={onFollowClick}
-            className="px-8 py-3 rounded-full bg-stone-900 text-white font-medium hover:bg-stone-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20"
+            className="px-6 py-2.5 rounded-full bg-stone-900 text-white text-sm md:text-base font-medium hover:bg-stone-800 transition-all flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20"
           >
             关注我 <ArrowRight className="w-4 h-4" />
           </button>
-          <a href="/blog/" className="px-8 py-3 rounded-full bg-white border border-stone-200 text-stone-700 font-medium hover:border-emerald-500 hover:text-emerald-700 transition-all shadow-sm">
+          <a href="/blog/" className="px-6 py-2.5 rounded-full bg-white border border-stone-200 text-sm md:text-base text-stone-700 font-medium hover:border-emerald-500 hover:text-emerald-700 transition-all shadow-sm">
             了解更多
           </a>
         </div>
@@ -195,21 +236,21 @@ const FeatureCard = ({
   reverse?: boolean
 }) => {
   return (
-    <section id={section.id} className="py-20 px-6 max-w-6xl mx-auto cursor-pointer" onClick={() => window.location.href = `/blog/${section.id}/`}>
-      <div className={`flex flex-col md:flex-row items-center gap-12 ${reverse ? 'md:flex-row-reverse' : ''}`}>
+    <section id={section.id} className="py-10 md:py-12 px-5 md:px-6 max-w-6xl mx-auto cursor-pointer" onClick={() => window.location.href = `/blog/${section.id}/`}>
+      <div className={`flex flex-col md:flex-row items-center gap-7 md:gap-8 ${reverse ? 'md:flex-row-reverse' : ''}`}>
 
         {/* Content Side */}
-        <div className="flex-1 space-y-6">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-6">
+        <div className="flex-1 space-y-4 md:space-y-5">
+          <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-2">
             {section.icon}
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-stone-900">{section.title}</h2>
-          <div className="h-1 w-20 bg-emerald-500 rounded-full"></div>
-          <p className="text-lg text-stone-600 leading-relaxed">
+          <h2 className="text-2xl md:text-3xl font-bold text-stone-900">{section.title}</h2>
+          <div className="h-1 w-16 bg-emerald-500 rounded-full"></div>
+          <p className="text-base md:text-lg text-stone-600 leading-relaxed">
             {section.description}
           </p>
 
-          <div className="pt-4 flex gap-3 text-sm font-medium text-stone-500">
+          <div className="pt-1 flex gap-2 text-xs md:text-sm font-medium text-stone-500">
             {section.id === 'psychology' && (
               <>
                 <span className="px-3 py-1 bg-stone-100 rounded-lg">#小王子</span>
@@ -233,7 +274,7 @@ const FeatureCard = ({
 
         {/* Image Side */}
         <div className="flex-1 w-full">
-          <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-stone-200 group">
+          <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-xl shadow-stone-200 group">
             {imageUrl ? (
               <img
                 src={imageUrl}
@@ -260,8 +301,8 @@ const FeatureCard = ({
 };
 
 const Footer = () => (
-  <footer className="bg-stone-900 text-stone-400 py-12 px-6">
-    <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+  <footer className="bg-stone-900 text-stone-400 py-8 px-5 md:px-6">
+    <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
       <div className="flex items-center gap-2 text-stone-100 font-bold text-lg">
         <Leaf className="w-5 h-5 text-emerald-500" />
         嘉树 Jiashu
@@ -339,18 +380,18 @@ function App() {
         />
       </main>
 
-      <div className="py-20 bg-emerald-50 px-6 text-center">
-        <div className="max-w-2xl mx-auto space-y-6">
-          <BookOpen className="w-10 h-10 text-emerald-600 mx-auto" />
-          <h3 className="text-3xl font-bold text-stone-900">
+      <div className="py-10 md:py-12 bg-emerald-50 px-5 md:px-6 text-center">
+        <div className="max-w-2xl mx-auto space-y-4">
+          <BookOpen className="w-8 h-8 text-emerald-600 mx-auto" />
+          <h3 className="text-2xl md:text-3xl font-bold text-stone-900">
             关注我，带你用程序思维升级心智
           </h3>
-          <p className="text-stone-600">
+          <p className="text-sm md:text-base text-stone-600">
             Decoding humanity through reading | Rebooting cognition through nature
           </p>
           <button
             onClick={() => setIsFollowModalOpen(true)}
-            className="mt-6 px-8 py-3 rounded-full bg-stone-900 text-white font-medium hover:bg-stone-800 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20"
+            className="mt-3 px-6 py-2.5 rounded-full bg-stone-900 text-white text-sm md:text-base font-medium hover:bg-stone-800 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-stone-900/20"
           >
             关注我 <ArrowRight className="w-4 h-4" />
           </button>
