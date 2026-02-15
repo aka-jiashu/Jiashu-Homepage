@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block footer %}
+<footer class="site-footer">
+  <div class="site-footer__inner md-grid">
+    <div class="site-footer__brand">
+      <span class="site-footer__leaf">🍃</span>
+      <span>嘉树 Jiashu</span>
+    </div>
+    <div class="site-footer__meta">
+      <p>用程序思维升级心智</p>
+      <p>© {{ build_date_utc.strftime('%Y') }} All rights reserved.</p>
+      <p>
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+          蜀ICP备2026006995号-1
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+{% endblock %}

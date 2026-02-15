@@ -1,46 +1,73 @@
 site_name: 嘉树 Jiashu's Blog
-site_url: https://aka-jiashu.cc/blog/
+site_url: https://aka-jiashu.online/blog/
 site_dir: dist/blog
 
 theme:
   name: material
   language: zh
+  custom_dir: docs/overrides
   features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.top
-    - toc.follow
+    - content.code.copy
+  icon:
+    logo: material/leaf
+  comments:
+    provider: giscus
   palette:
     - scheme: default
       primary: teal
       accent: teal
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: teal
-      accent: teal
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
 
 nav:
-  - 首页: index.md
-  - 阅读与解构: 
-    - 概览: psychology/index.md
-    - 《小王子》与亲密关系: psychology/the-little-prince.md
-  - 自然与运动: nature/index.md
-  - AI 与创造力:
-    - 概览: tech/index.md
-    - AI Agent 时代: tech/ai-agent-era.md
+  - 博客: index.md
+  - 标签: tags.md
+  - 返回首页: https://aka-jiashu.online/
 
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
   - attr_list
   - md_in_html
 
 plugins:
-  - search:
-      lang: ['en', 'zh']
+  - group:
+      enabled: true
+      plugins:
+        - blog:
+            blog_dir: .
+            post_dir: posts
+            archive: true
+            categories: true
+        - offline
+        - social
+        - tags
+        - search:
+            lang: ['en', 'zh']
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - javascripts/mermaid.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+
+extra:
+  giscus:
+    repo: aria4larry/Jiashu-Homepage
+    repo_id: REPLACE_WITH_REPO_ID
+    category: General
+    category_id: REPLACE_WITH_CATEGORY_ID
+    mapping: pathname
+    strict: 0
+    reactions_enabled: 1
+    emit_metadata: 0
+    input_position: top
+    lang: zh-CN

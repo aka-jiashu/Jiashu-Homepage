@@ -1,3 +1,17 @@
+---
+title: AI Agent 时代程序员生存指南：做机器的牧羊人
+slug: ai-agent-era
+date:
+  created: 2025-12-26
+categories:
+  - AI 与创造力
+tags:
+  - AI
+  - Agent
+  - Productivity
+  - Engineering
+---
+
 # AI Agent 时代程序员生存指南：做机器的牧羊人 🧠🌍
 
 

@@ -1,3 +1,16 @@
+---
+title: 《小王子》系列一：《爱情修炼手册》
+slug: the-little-prince-intimacy
+date:
+  created: 2025-12-20
+categories:
+  - 阅读与解构
+tags:
+  - 小王子
+  - 亲密关系
+  - 心理学
+---
+
 # 《小王子》系列一 ： 《爱情修炼手册》
 
 ## 前言
