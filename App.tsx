@@ -269,6 +269,16 @@ const Footer = () => (
       <div className="text-center md:text-right text-sm">
         <p>用程序思维升级心智 🌱</p>
         <p className="mt-2 text-stone-600">© {new Date().getFullYear()} All rights reserved.</p>
+        <p className="mt-2">
+          <a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-stone-500 hover:text-stone-300 transition-colors"
+          >
+            蜀ICP备2026006995号-1
+          </a>
+        </p>
       </div>
     </div>
   </footer>

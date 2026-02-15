@@ -7,7 +7,6 @@ This project is a personal home site for "嘉树 Jiashu", combining a React-base
 - **Frontend:** React 19, TypeScript, Vite 6
 - **Styling:** Tailwind CSS 4, Lucide React (icons)
 - **Documentation:** MkDocs with Material theme
-- **AI Integration:** Google Gemini API (via `geminiService.ts`)
 
 ## Setup & Installation
 
@@ -59,9 +58,5 @@ This project is a personal home site for "嘉树 Jiashu", combining a React-base
 - `App.tsx`: Main React application logic and UI.
 - `docs/`: Markdown source files for the blog.
 - `imgs/`: Static image assets (hero, psychology, nature, tech).
-- `services/geminiService.ts`: Integration with Google Gemini.
 - `nginx.conf`: Configuration for serving the site via Nginx.
 - `dist/`: Unified production build output.
-
-## Environment Variables
-- `GEMINI_API_KEY`: Required for AI features. Set in `.env.local`.

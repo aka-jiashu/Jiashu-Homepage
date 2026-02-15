@@ -1,7 +1,7 @@
 #!/bin/bash
 # Build and Deploy Script
 
-VPS_TARGET="vps-us:/usr/share/nginx/html"
+VPS_TARGET="gz-vps:/opt/1panel/www/sites/aka-jiashu.online/index"
 
 echo "Building React App..."
 npm run build
