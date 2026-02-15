@@ -61,13 +61,14 @@ extra_javascript:
 
 extra:
   giscus:
-    repo: aria4larry/Jiashu-Homepage
-    repo_id: REPLACE_WITH_REPO_ID
+    repo: aka-jiashu/Jiashu-Homepage
+    repo_id: R_kgDOQceRXA
     category: General
-    category_id: REPLACE_WITH_CATEGORY_ID
+    category_id: DIC_kwDOQceRXM4C2e7w
     mapping: pathname
     strict: 0
     reactions_enabled: 1
     emit_metadata: 0
-    input_position: top
+    input_position: bottom
+    theme: preferred_color_scheme
     lang: zh-CN

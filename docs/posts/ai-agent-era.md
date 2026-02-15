@@ -10,6 +10,7 @@ tags:
   - Agent
   - Productivity
   - Engineering
+comments: true
 ---
 
 # AI Agent 时代程序员生存指南：做机器的牧羊人 🧠🌍
